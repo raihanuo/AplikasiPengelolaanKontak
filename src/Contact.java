@@ -40,7 +40,7 @@ public class Contact {
 
     public static void tambahKontak(Contact contact) {
         try (Connection conn = DriverManager.getConnection(Database.DB_URL);
-             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO daftarKontak (nama, nomor, kategori) VALUES (?, ?, ?)")) {
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO daftarKontak (nama, nomor, kategori) VALUES (?, ?, ?)")) {
             pstmt.setString(1, contact.getNama());
             pstmt.setString(2, contact.getNomor());
             pstmt.setString(3, contact.getKategori());
@@ -52,7 +52,7 @@ public class Contact {
 
     public static void ubahKontak(int id, Contact contact) {
         try (Connection conn = DriverManager.getConnection(Database.DB_URL);
-             PreparedStatement pstmt = conn.prepareStatement("UPDATE daftarKontak SET nama = ?, nomor = ?, kategori = ? WHERE id = ?")) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE daftarKontak SET nama = ?, nomor = ?, kategori = ? WHERE id = ?")) {
             pstmt.setString(1, contact.getNama());
             pstmt.setString(2, contact.getNomor());
             pstmt.setString(3, contact.getKategori());
@@ -65,7 +65,7 @@ public class Contact {
 
     public static void hapusKontak(int id) {
         try (Connection conn = DriverManager.getConnection(Database.DB_URL);
-             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM daftarKontak WHERE id = ?")) {
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM daftarKontak WHERE id = ?")) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {

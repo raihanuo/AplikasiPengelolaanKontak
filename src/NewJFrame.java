@@ -75,6 +75,11 @@ public class NewJFrame extends javax.swing.JFrame {
         textFieldNama.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         textFieldNomor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textFieldNomor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldNomorKeyTyped(evt);
+            }
+        });
 
         textFieldCari.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -197,6 +202,14 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void textFieldNomorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldNomorKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Hanya bisa memasukkan angka!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_textFieldNomorKeyTyped
+
     private void muatKontak() {
         DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
         tableModel.setRowCount(0);
@@ -221,9 +234,13 @@ public class NewJFrame extends javax.swing.JFrame {
             String phone = textFieldNomor.getText();
             String category = comboBoxKategori.getSelectedItem().toString();
             if (validasiNomor(phone)) {
-                Contact.tambahKontak(new Contact(name, phone, category));
-                muatKontak();
-                bersihkanField();
+                if (!textFieldNama.getText().isEmpty()) {
+                    Contact.tambahKontak(new Contact(name, phone, category));
+                    muatKontak();
+                    bersihkanField();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nama tidak boleh kosong!");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid phone number!");
             }
