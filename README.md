@@ -39,7 +39,6 @@ Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak,
 ![3](https://github.com/user-attachments/assets/ac286ee1-a0d2-4413-9b59-a47eaadaee6a)
 ![3_](https://github.com/user-attachments/assets/583a1b56-7757-4cdf-929e-ce9f7d90c45a)
 
-
 ## Cara Menjalankan Program
 1. Pastikan Anda memiliki **Java Development Kit (JDK)** terinstal di sistem Anda.
 2. Clone repositori ini ke mesin lokal Anda.
