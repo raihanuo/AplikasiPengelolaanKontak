@@ -7,7 +7,7 @@ Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak,
 - NPM   : 2210010364
 - Kelas : 5B NonReg Banjarmasin
 
-## Fitur Program
+## Fitur
 - **Menambah Kontak**: Pengguna dapat menambah kontak baru dengan nama, nomor telepon, dan kategori.
 - **Mengubah Kontak**: Pengguna dapat mengubah informasi kontak yang sudah ada.
 - **Menghapus Kontak**: Pengguna dapat menghapus kontak dari daftar.
@@ -15,7 +15,7 @@ Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak,
 - **Ekspor dan Impor**: Pengguna dapat mengekspor kontak ke file CSV dan mengimpor dari file CSV.
 - **Validasi Input**: Memastikan bahwa nomor telepon yang dimasukkan valid (10-15 digit).
 
-## Cara Menggunakan Program
+## Cara Menggunakan
 1. Jalankan program.
 2. Untuk menambah kontak, isi nama, nomor telepon, dan pilih kategori, kemudian klik "Tambah".
 3. Untuk mengubah kontak, pilih kontak dari tabel dan ubah informasi yang diinginkan, kemudian klik "Ubah".
@@ -29,14 +29,18 @@ Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak,
 - **SQL**: Digunakan untuk pengelolaan basis data kontak.
 - **CSV**: Format file untuk ekspor dan impor data kontak.
 
-## Keunggulan Program
+## Keunggulan
 - **User-Friendly**: Antarmuka pengguna yang intuitif dan mudah digunakan.
 - **Fleksibilitas**: Memungkinkan pengguna untuk mengelola kontak dengan cara yang efisien.
 - **Data Validasi**: Memastikan data yang dimasukkan valid untuk menghindari kesalahan.
 - **Ekspor dan Impor**: Memudahkan pengguna dalam menyimpan dan memulihkan data kontak.
 
+## Screenshot
+_Akan ditambahkan nanti_
+
 ## Cara Menjalankan Program
-1. Pastikan Anda memiliki **Java Development Kit (JDK)** terinstal di komputer Anda.
-2. Clone repositori ini ke komputer Anda.
+1. Pastikan Anda memiliki **Java Development Kit (JDK)** terinstal di sistem Anda.
+2. Clone repositori ini ke mesin lokal Anda.
    ```bash
    git clone https://github.com/username/repo-name.git
+3. Jalankan aplikasi dengan mengkompilasi dan mengeksekusi file `NewJFrame.java`.
