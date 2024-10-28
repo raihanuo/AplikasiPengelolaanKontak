@@ -70,7 +70,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel3.setText("Kategori");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Cari");
+        jLabel4.setText("Cari Kontak");
 
         textFieldNama.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -99,10 +99,10 @@ public class NewJFrame extends javax.swing.JFrame {
         buttonCari.setText("Cari");
 
         buttonEkspor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonEkspor.setText("Ekspor");
+        buttonEkspor.setText("Ekspor ke File");
 
         buttonImpor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonImpor.setText("Impor");
+        buttonImpor.setText("Impor dari File");
 
         tableKontak.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,8 +120,8 @@ public class NewJFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -143,15 +143,15 @@ public class NewJFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonHapus)))
                         .addGap(51, 51, 51)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(buttonEkspor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonImpor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(buttonEkspor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonImpor))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textFieldCari)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonCari)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -230,12 +230,12 @@ public class NewJFrame extends javax.swing.JFrame {
     private class tambahKontakListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String name = textFieldNama.getText();
-            String phone = textFieldNomor.getText();
-            String category = comboBoxKategori.getSelectedItem().toString();
-            if (validasiNomor(phone)) {
+            String nama = textFieldNama.getText();
+            String nomor = textFieldNomor.getText();
+            String kategori = comboBoxKategori.getSelectedItem().toString();
+            if (validasiNomor(nomor)) {
                 if (!textFieldNama.getText().isEmpty()) {
-                    Contact.tambahKontak(new Contact(name, phone, category));
+                    Contact.tambahKontak(new Contact(nama, nomor, kategori));
                     muatKontak();
                     bersihkanField();
                 } else {
@@ -251,14 +251,14 @@ public class NewJFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-            int selectedRow = tableKontak.getSelectedRow();
-            if (selectedRow >= 0) {
-                String id = tableModel.getValueAt(selectedRow, 0).toString();
-                String name = textFieldNama.getText();
-                String phone = textFieldNomor.getText();
-                String category = comboBoxKategori.getSelectedItem().toString();
-                if (validasiNomor(phone)) {
-                    Contact.ubahKontak(Integer.parseInt(id), new Contact(name, phone, category));
+            int barisAktif = tableKontak.getSelectedRow();
+            if (barisAktif >= 0) {
+                String id = tableModel.getValueAt(barisAktif, 0).toString();
+                String nama = textFieldNama.getText();
+                String nomor = textFieldNomor.getText();
+                String kategori = comboBoxKategori.getSelectedItem().toString();
+                if (validasiNomor(nomor)) {
+                    Contact.ubahKontak(Integer.parseInt(id), new Contact(nama, nomor, kategori));
                     muatKontak();
                     bersihkanField();
                 } else {
@@ -272,9 +272,9 @@ public class NewJFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-            int selectedRow = tableKontak.getSelectedRow();
-            if (selectedRow >= 0) {
-                String id = tableModel.getValueAt(selectedRow, 0).toString();
+            int barisAktif = tableKontak.getSelectedRow();
+            if (barisAktif >= 0) {
+                String id = tableModel.getValueAt(barisAktif, 0).toString();
                 Contact.hapusKontak(Integer.parseInt(id));
                 muatKontak();
                 bersihkanField();
@@ -325,8 +325,8 @@ public class NewJFrame extends javax.swing.JFrame {
         tableKontak.clearSelection();
     }
 
-    private boolean validasiNomor(String phone) {
-        return phone.matches("\\d{10,15}");
+    private boolean validasiNomor(String nomor) {
+        return nomor.matches("\\d{10,15}");
     }
     
     private void start() {
@@ -338,6 +338,7 @@ public class NewJFrame extends javax.swing.JFrame {
         buttonImpor.addActionListener(new imporKontakListener());
         
         comboBoxKategori.addItemListener(new ItemListener() {
+            @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String kategoriTerpilih = (String) comboBoxKategori.getSelectedItem();
@@ -357,7 +358,6 @@ public class NewJFrame extends javax.swing.JFrame {
                             deskripsi = "Kontak yang tidak termasuk dalam kategori di atas.";
                             break;
                     }
-//                    JOptionPane.showMessageDialog(null, deskripsi);
                     System.out.println(deskripsi);
                 }
             }
@@ -367,11 +367,11 @@ public class NewJFrame extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-                int selectedRow = tableKontak.getSelectedRow();
-                if (selectedRow >= 0) {
-                    textFieldNama.setText(tableModel.getValueAt(selectedRow, 1).toString());
-                    textFieldNomor.setText(tableModel.getValueAt(selectedRow, 2).toString());
-                    comboBoxKategori.setSelectedItem(tableModel.getValueAt(selectedRow, 3).toString());
+                int barisAktif = tableKontak.getSelectedRow();
+                if (barisAktif >= 0) {
+                    textFieldNama.setText(tableModel.getValueAt(barisAktif, 1).toString());
+                    textFieldNomor.setText(tableModel.getValueAt(barisAktif, 2).toString());
+                    comboBoxKategori.setSelectedItem(tableModel.getValueAt(barisAktif, 3).toString());
                 }
             }
         });
