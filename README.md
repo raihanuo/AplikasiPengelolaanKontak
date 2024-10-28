@@ -20,13 +20,14 @@ Aplikasi ini adalah program Java berbasis GUI yang memungkinkan pengguna untuk m
 2. Untuk mengubah kontak, pilih kontak dari tabel dan ubah informasi yang diinginkan, kemudian klik "Ubah".
 3. Untuk menghapus kontak, pilih kontak dari tabel dan klik "Hapus".
 4. Untuk mencari kontak, masukkan nama kontak di kolom "Cari" dan klik "Cari".
-5. Untuk mengekspor kontak, klik "Ekspor" dan untuk mengimpor, klik "Impor".
+5. Untuk mengekspor kontak, klik "Ekspor ke File" dan untuk mengimpor, klik "Impor dari File".
 
 ## Teknologi yang Digunakan
 - **Java**: Bahasa pemrograman yang digunakan untuk membangun aplikasi.
 - **Swing**: Library Java untuk membuat antarmuka pengguna grafis (GUI).
 - **SQL**: Digunakan untuk pengelolaan basis data kontak.
 - **CSV**: Format file untuk ekspor dan impor data kontak.
+- **Library SQLite**: sqlite-jdbc-3.47.0.0.jar untuk menyimpan data secara lokal.
 
 ## Keunggulan
 - **User-Friendly**: Antarmuka pengguna yang intuitif dan mudah digunakan.
@@ -43,4 +44,5 @@ Aplikasi ini adalah program Java berbasis GUI yang memungkinkan pengguna untuk m
 2. Clone repositori ini ke mesin lokal Anda.
    ```bash
    git clone https://github.com/username/repo-name.git
-3. Jalankan aplikasi dengan mengkompilasi dan mengeksekusi file `NewJFrame.java`.
+3. Tambahkan sqlite-jdbc-3.47.0.0.jar dari folder lib ke Libary Anda.
+4. Jalankan aplikasi dengan mengkompilasi dan mengeksekusi file `NewJFrame.java`.
