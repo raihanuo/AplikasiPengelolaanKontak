@@ -36,8 +36,9 @@ Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak,
 - **Ekspor dan Impor**: Memudahkan pengguna dalam menyimpan dan memulihkan data kontak.
 
 ## Screenshot
-![3](https://github.com/user-attachments/assets/ac286ee1-a0d2-4413-9b59-a47eaadaee6a)
-![3_](https://github.com/user-attachments/assets/583a1b56-7757-4cdf-929e-ce9f7d90c45a)
+![3](https://github.com/user-attachments/assets/5a63d61b-fb4c-4207-a892-b291213a2d74)
+![3_](https://github.com/user-attachments/assets/ce3f625e-3b09-496e-86c3-a81c8843a371)
+
 
 ## Cara Menjalankan Program
 1. Pastikan Anda memiliki **Java Development Kit (JDK)** terinstal di sistem Anda.
