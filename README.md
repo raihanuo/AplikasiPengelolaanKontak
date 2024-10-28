@@ -1,6 +1,6 @@
 # Aplikasi Pengelolaan Kontak
 
-Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak, memungkinkan pengguna untuk menambah, mengubah, menghapus, dan mencari kontak dengan mudah.
+Aplikasi ini adalah program Java berbasis GUI yang memungkinkan pengguna untuk mengelola kontak, memungkinkan pengguna untuk menambah, mengubah, menghapus, dan mencari kontak dengan mudah. Selain itu aplikasi ini bisa mengekspor dan mengimpor kontak.
 
 ## Identitas
 - Nama  : Muhammad Raihan
@@ -16,12 +16,11 @@ Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak,
 - **Validasi Input**: Memastikan bahwa nomor telepon yang dimasukkan valid (10-15 digit).
 
 ## Cara Menggunakan
-1. Jalankan program.
-2. Untuk menambah kontak, isi nama, nomor telepon, dan pilih kategori, kemudian klik "Tambah".
-3. Untuk mengubah kontak, pilih kontak dari tabel dan ubah informasi yang diinginkan, kemudian klik "Ubah".
-4. Untuk menghapus kontak, pilih kontak dari tabel dan klik "Hapus".
-5. Untuk mencari kontak, masukkan nama kontak di kolom "Cari" dan klik "Cari".
-6. Untuk mengekspor kontak, klik "Ekspor" dan untuk mengimpor, klik "Impor".
+1. Untuk menambah kontak, isi nama, nomor telepon, dan pilih kategori, kemudian klik "Tambah".
+2. Untuk mengubah kontak, pilih kontak dari tabel dan ubah informasi yang diinginkan, kemudian klik "Ubah".
+3. Untuk menghapus kontak, pilih kontak dari tabel dan klik "Hapus".
+4. Untuk mencari kontak, masukkan nama kontak di kolom "Cari" dan klik "Cari".
+5. Untuk mengekspor kontak, klik "Ekspor" dan untuk mengimpor, klik "Impor".
 
 ## Teknologi yang Digunakan
 - **Java**: Bahasa pemrograman yang digunakan untuk membangun aplikasi.
@@ -38,7 +37,6 @@ Aplikasi ini adalah program berbasis Java yang digunakan untuk mengelola kontak,
 ## Screenshot
 ![3](https://github.com/user-attachments/assets/5a63d61b-fb4c-4207-a892-b291213a2d74)
 ![3_](https://github.com/user-attachments/assets/ce3f625e-3b09-496e-86c3-a81c8843a371)
-
 
 ## Cara Menjalankan Program
 1. Pastikan Anda memiliki **Java Development Kit (JDK)** terinstal di sistem Anda.
