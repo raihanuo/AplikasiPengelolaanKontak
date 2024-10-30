@@ -27,7 +27,7 @@ public class NewJFrame extends javax.swing.JFrame {
     public NewJFrame() {
         initComponents();
         
-        start();
+        start(); // Memanggil metode start() untuk mengatur listener dan memuat data kontak
     }    
 
     /**
@@ -204,16 +204,19 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void textFieldNomorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldNomorKeyTyped
         char c = evt.getKeyChar();
+        // Memastikan karakter yang dimasukkan adalah digit atau tombol backspace
         if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
-            evt.consume();
+            evt.consume(); // Mengabaikan input jika tidak valid
+            // Menampilkan pesan kesalahan jika input bukan angka
             JOptionPane.showMessageDialog(this, "Hanya bisa memasukkan angka!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_textFieldNomorKeyTyped
 
     private void muatKontak() {
         DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-        tableModel.setRowCount(0);
+        tableModel.setRowCount(0); // Mengosongkan tabel sebelum memuat data baru
         try (ResultSet rs = Contact.getKontak()) {
+            // Menambahkan setiap baris data kontak ke model tabel
             while (rs != null && rs.next()) {
                 tableModel.addRow(new Object[]{
                         rs.getInt("id"),
@@ -223,25 +226,29 @@ public class NewJFrame extends javax.swing.JFrame {
                 });
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Menangani exception SQL
         }
     }
     
     private class tambahKontakListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String nama = textFieldNama.getText();
-            String nomor = textFieldNomor.getText();
-            String kategori = comboBoxKategori.getSelectedItem().toString();
+            String nama = textFieldNama.getText(); // Mengambil nama dari field
+            String nomor = textFieldNomor.getText(); // Mengambil nomor dari field
+            String kategori = comboBoxKategori.getSelectedItem().toString(); // Mengambil kategori terpilih
+            // Memvalidasi nomor telepon sebelum menyimpan
             if (validasiNomor(nomor)) {
                 if (!textFieldNama.getText().isEmpty()) {
+                    // Menambah kontak baru ke database
                     Contact.tambahKontak(new Contact(nama, nomor, kategori));
-                    muatKontak();
-                    bersihkanField();
+                    muatKontak(); // Memuat ulang data kontak
+                    bersihkanField(); // Membersihkan field input
                 } else {
+                    // Menampilkan pesan kesalahan jika nama kosong
                     JOptionPane.showMessageDialog(null, "Nama tidak boleh kosong!");
                 }
             } else {
+                // Menampilkan pesan kesalahan jika nomor tidak valid
                 JOptionPane.showMessageDialog(null, "Invalid phone number!");
             }
         }
@@ -251,16 +258,18 @@ public class NewJFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-            int barisAktif = tableKontak.getSelectedRow();
+            int barisAktif = tableKontak.getSelectedRow(); // Mengambil baris yang dipilih
             if (barisAktif >= 0) {
-                String id = tableModel.getValueAt(barisAktif, 0).toString();
+                String id = tableModel.getValueAt(barisAktif, 0).toString(); // Mengambil ID kontak
                 String nama = textFieldNama.getText();
                 String nomor = textFieldNomor.getText();
                 String kategori = comboBoxKategori.getSelectedItem().toString();
+                // Memvalidasi nomor sebelum mengubah
                 if (validasiNomor(nomor)) {
+                    // Mengubah data kontak di database
                     Contact.ubahKontak(Integer.parseInt(id), new Contact(nama, nomor, kategori));
-                    muatKontak();
-                    bersihkanField();
+                    muatKontak(); // Memuat ulang data kontak
+                    bersihkanField(); // Membersihkan field input
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid phone number!");
                 }
@@ -272,12 +281,13 @@ public class NewJFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-            int barisAktif = tableKontak.getSelectedRow();
+            int barisAktif = tableKontak.getSelectedRow(); // Mengambil baris yang dipilih
             if (barisAktif >= 0) {
-                String id = tableModel.getValueAt(barisAktif, 0).toString();
+                String id = tableModel.getValueAt(barisAktif, 0).toString(); // Mengambil ID kontak
+                // Menghapus kontak dari database
                 Contact.hapusKontak(Integer.parseInt(id));
-                muatKontak();
-                bersihkanField();
+                muatKontak(); // Memuat ulang data kontak
+                bersihkanField(); // Membersihkan field input
             }
         }
     }
@@ -286,9 +296,10 @@ public class NewJFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-            String query = textFieldCari.getText();
-            tableModel.setRowCount(0);
+            String query = textFieldCari.getText(); // Mengambil query pencarian
+            tableModel.setRowCount(0); // Mengosongkan tabel sebelum menampilkan hasil pencarian
             try (ResultSet rs = Contact.cariKontak(query)) {
+                // Menambahkan hasil pencarian ke tabel
                 while (rs != null && rs.next()) {
                     tableModel.addRow(new Object[]{
                             rs.getInt("id"),
@@ -298,7 +309,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     });
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                ex.printStackTrace(); // Menangani exception SQL
             }
         }
     }
@@ -306,37 +317,39 @@ public class NewJFrame extends javax.swing.JFrame {
     private class eksporKontakListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Contact.eksporKeCSV();
+            Contact.eksporKeCSV(); // Menggunakan metode untuk mengekspor data
         }
     }
 
     private class imporKontakListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Contact.imporDariCSV();
-            muatKontak();
+            Contact.imporDariCSV(); // Menggunakan metode untuk mengimpor data
+            muatKontak(); // Memuat ulang data kontak setelah impor
         }
     }
 
     private void bersihkanField() {
-        textFieldNama.setText("");
-        textFieldNomor.setText("");
-        comboBoxKategori.setSelectedIndex(0);
-        tableKontak.clearSelection();
+        textFieldNama.setText(""); // Mengosongkan field nama
+        textFieldNomor.setText(""); // Mengosongkan field nomor
+        comboBoxKategori.setSelectedIndex(0); // Mengatur kategori ke default
+        tableKontak.clearSelection(); // Menghapus pemilihan di tabel
     }
 
     private boolean validasiNomor(String nomor) {
-        return nomor.matches("\\d{10,15}");
+        return nomor.matches("\\d{10,15}"); // Memastikan nomor terdiri dari 10-15 digit
     }
     
     private void start() {
+        // Menambahkan listener untuk tombol-tombol yang ada
         buttonTambah.addActionListener(new tambahKontakListener());
         buttonUbah.addActionListener(new ubahKontakListener());
         buttonHapus.addActionListener(new hapusKontakListener());
         buttonCari.addActionListener(new cariKontakListener());
         buttonEkspor.addActionListener(new eksporKontakListener());
         buttonImpor.addActionListener(new imporKontakListener());
-        
+
+        // Menambahkan listener untuk comboBox kategori
         comboBoxKategori.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -344,6 +357,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     String kategoriTerpilih = (String) comboBoxKategori.getSelectedItem();
                     String deskripsi = "";
 
+                    // Menentukan deskripsi berdasarkan kategori yang dipilih
                     switch (kategoriTerpilih) {
                         case "Keluarga":
                             deskripsi = "Kontak yang merupakan anggota keluarga.";
@@ -358,25 +372,27 @@ public class NewJFrame extends javax.swing.JFrame {
                             deskripsi = "Kontak yang tidak termasuk dalam kategori di atas.";
                             break;
                     }
-                    System.out.println(deskripsi);
+                    System.out.println(deskripsi); // Menampilkan deskripsi kategori
                 }
             }
         });
-        
+
+        // Listener untuk menangani pemilihan baris di tabel
         tableKontak.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 DefaultTableModel tableModel = (DefaultTableModel) tableKontak.getModel();
-                int barisAktif = tableKontak.getSelectedRow();
+                int barisAktif = tableKontak.getSelectedRow(); // Mengambil baris yang dipilih
                 if (barisAktif >= 0) {
+                    // Mengisi field dengan data kontak yang dipilih
                     textFieldNama.setText(tableModel.getValueAt(barisAktif, 1).toString());
                     textFieldNomor.setText(tableModel.getValueAt(barisAktif, 2).toString());
                     comboBoxKategori.setSelectedItem(tableModel.getValueAt(barisAktif, 3).toString());
                 }
             }
         });
-        
-        muatKontak();
+
+        muatKontak(); // Memuat data kontak saat aplikasi dimulai
     }
     
     /**
@@ -406,7 +422,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        Database.createDatabase();
+        Database.createDatabase(); // Membuat database jika belum ada
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
